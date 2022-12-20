@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home" android:icon="@drawable/home" android:id="@+id/ic_home"/>
+    <item android:title="AFK-Page" android:icon="@drawable/moon" android:id="@+id/ic_afk"/>
+    <item android:title="Profile" android:icon="@drawable/user" android:id="@+id/ic_user"/>
+</menu>
