@@ -1,12 +1,16 @@
 package me.tangobee.saras;
 
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
+
+import java.io.IOException;
+
+import me.tangobee.saras.application.AppActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,18 +18,54 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setNavigationBarColor(Color.TRANSPARENT);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        TransparentWidnow.transparentWindow(getWindow());
 
         setContentView(R.layout.activity_main);
 
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("AUTH", 0);
 
-            startActivity(intent);
+        boolean isLogged = pref.getBoolean("isLoggedIn", false);
+        String email = pref.getString("email_key", null);
 
-            finish();
-        }, 1500);
+        try {
+            if (!isInternetAvailable()) {
+                Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                while(!isInternetAvailable());
+            }
+
+            else if (isInternetAvailable()) {
+
+                if (!isLogged && email == null) {
+                    new Handler().postDelayed(() -> {
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                        }, 1500);
+                }
+                else {
+                    new Handler().postDelayed(() -> {
+                        Intent intent = new Intent(MainActivity.this, AppActivity.class);
+                        intent.putExtra("email", email);
+                        startActivity(intent);
+                        finish();
+                        }, 1500);
+                }
+            }
+
+            else {
+                Toast.makeText(this, "Please check your internet connection.", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+
+        }
+
+
+    }
+
+    public boolean isInternetAvailable() throws InterruptedException, IOException {
+        String command = "ping -c 1 google.com";
+        return Runtime.getRuntime().exec(command).waitFor() == 0;
     }
 }

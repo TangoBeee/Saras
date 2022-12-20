@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="ctm_red">#FC4649</color>
+    <color name="light_white">#C1BFC0</color>
 </resources>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Saras</string>
+    <string name="tos">TERMS OF SERVICE</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_art">YOUR ART</string>
 </resources>

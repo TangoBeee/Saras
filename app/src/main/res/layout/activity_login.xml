@@ -113,14 +113,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/cardview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/login_bg"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:layout_width="wrap_content"
